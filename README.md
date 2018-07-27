@@ -18,5 +18,8 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/torian
 ## License
 This app is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
+## Code of Conduct
+Everyone interacting in the TripLogger project's codebases, issue trackers, chat rooms, and mailing lists are expected to follow the [code of conduct](https://github.com/torianne02/Sinatra-Project-TripLogger/blob/master/CODE_OF_CONDUCT.md)
+
 ## Credits
 Project structure developed with Corneal gem.
