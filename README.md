@@ -5,7 +5,7 @@ Welcome to *TripLogger*, a Sinatra Web-app to log one's travels. With TripLogger
 You can install this app by running `git clone git@github.com:torianne02/Sinatra-Project-TripLogger.git`
 
 ## Usage
-After cloning the repository, change directory by running `cd Sinatra-Project-TripLogger`.
+After cloning the repository, change directory by running `cd Sinatra-Project-TripLogger/`.
 Then, run the following:
 ```ruby
 bundle install
