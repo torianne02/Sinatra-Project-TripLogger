@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     if !session[:user_id]
       erb :'/users/signup'
     else
-      redirect '/cities/index'
+      redirect '/cities'
     end
   end
 
@@ -13,13 +13,13 @@ class UsersController < ApplicationController
     else
       @user = User.create(username: params[:username], email: params[:email], password: params[:password])
       session[:user_id] = @user.id
-      redirect '/cities/index'
+      redirect '/cities'
     end
   end
 
   get '/users/login' do
     if logged_in?
-      redirect '/cities/index'
+      redirect '/cities'
     else
       erb :'/users/login'
     end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
     if @user != nil
       session[:user_id] = @user.id
-      redirect '/cities/index'
+      redirect '/cities'
     end
   end
 

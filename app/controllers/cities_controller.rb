@@ -1,37 +1,81 @@
 class CitiesController < ApplicationController
-
-  # GET: /cities
   get "/cities" do
-    erb :"/cities/index.html"
+    if logged_in?
+      erb :"/cities/index"
+    else
+      redirect '/users/login'
+    end
   end
 
-  # GET: /cities/new
   get "/cities/new" do
-    erb :"/cities/new.html"
+    if logged_in?
+      erb :"/cities/new"
+    else
+      redirect '/users/login'
+    end
   end
 
-  # POST: /cities
   post "/cities" do
-    redirect "/cities"
+    if params[:name].empty? || params[:length_of_visit].empty?
+      redirect '/cities/new'
+    else
+      @city = City.create(name: params[:name], length_of_visit: params[:length_of_visit])
+      @user = User.find(session[:user_id])
+      @city.user_id = @user.id
+      @city.save
+    end
   end
 
-  # GET: /cities/5
   get "/cities/:id" do
-    erb :"/cities/show.html"
+    if logged_in?
+      @city = City.find_by_id(params[:id])
+      erb :'/cities/show'
+    else
+      redirect '/users/login'
+    end
   end
 
-  # GET: /cities/5/edit
   get "/cities/:id/edit" do
-    erb :"/cities/edit.html"
+    if logged_in?
+      @city = City.find_by_id(params[:id])
+      if session[:user_id] == @city.user_id
+        erb :'/cities/edit'
+      else
+        redirect '/cities'
+      end
+    else
+      redirect '/users/login'
+    end
   end
 
-  # PATCH: /cities/5
   patch "/cities/:id" do
-    redirect "/cities/:id"
+    if logged_in?
+      if params[:name].empty? || params[:length_of_visit].empty?
+        redirect "/cities/#{params[:id]}/edit"
+      else
+        @city = City.find_by_id(params[:id])
+        if session[:user_id] = @city.user_id
+          if @city.update(name: params[:name], length_of_visit: params[:length_of_visit])
+            redirect "/cities/#{@city.id}"
+          else
+            redirect "/cities/#{@city.id}/edit"
+          end
+        else
+          redirect '/cities'
+        end
+      end
+    else
+      redirect 'users/login'
+    end
   end
 
-  # DELETE: /cities/5/delete
   delete "/cities/:id/delete" do
-    redirect "/cities"
+    @city = City.find_by_id(params[:id])
+    if session[:user_id] != @tweet.user_id
+      redirect '/cities'
+    else
+      @city.delete
+      redirect '/cities'
+    end
   end
 end
