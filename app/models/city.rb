@@ -1,3 +1,6 @@
 class City < ActiveRecord::Base
-  has_many :users, through: :trips 
+  extend Slugifiable::ClassMethods
+  include Slugifiable::InstanceMethods
+
+  has_many :users, through: :trips
 end

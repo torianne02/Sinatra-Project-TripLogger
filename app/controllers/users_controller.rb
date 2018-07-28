@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  get '/signup' do
+  get '/users/signup' do
     if !session[:user_id]
-      erb :'users/signup'
+      erb :'/users/signup'
     else
       redirect '/cities/index'
     end
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   post '/signup' do
     if params.values.include?("")
-      redirect 'users/signup'
+      redirect '/users/signup'
     else
       @user = User.create(username: params[:username], email: params[:email], password: params[:password])
       session[:user_id] = @user.id
@@ -17,8 +17,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET: /users
-  get '/login' do
+  get '/users/login' do
     if logged_in?
       redirect '/cities/index'
     else
@@ -35,7 +34,7 @@ class UsersController < ApplicationController
     end
   end
 
-  get '/logout' do
+  get '/users/logout' do
     if logged_in?
       session.clear
       redirect '/users/login'
