@@ -1,1 +1,10 @@
-<h1>This is the Model's index page.</h1>
+<h1>Welcome, <%= session[:username] %>!</h1>
+
+<h2>Your Trips:</h2>
+
+<% City.all.each do |city| %>
+  <div>
+    <h3><%= city.name %> Trip</h3>
+    <p>Length of Trip: <%= city.length_of_visit %></p>
+  </div>
+<% end %>

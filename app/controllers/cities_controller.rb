@@ -56,11 +56,8 @@ class CitiesController < ApplicationController
       else
         @city = City.find_by_id(params[:id])
         if session[:user_id] = @city.user_id
-          if @city.update(name: params[:name], length_of_visit: params[:length_of_visit])
-            redirect to "/cities/#{@city.id}"
-          else
-            redirect to "/cities/#{@city.id}/edit"
-          end
+          @city.update(name: params[:name], length_of_visit: params[:length_of_visit])
+          @city.save
         else
           redirect to '/cities'
         end
