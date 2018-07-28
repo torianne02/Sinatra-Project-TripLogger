@@ -1,37 +1,46 @@
 class UsersController < ApplicationController
+  get '/signup' do
+    if !session[:user_id]
+      erb :'users/signup'
+    else
+      redirect '/cities/index'
+    end
+  end
+
+  post '/signup' do
+    if params.values.include?("")
+      redirect 'users/signup'
+    else
+      @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+      session[:user_id] = @user.id
+      redirect '/cities/index'
+    end
+  end
 
   # GET: /users
-  get "/users" do
-    erb :"/users/index.html"
+  get '/login' do
+    if logged_in?
+      redirect '/cities/index'
+    else
+      erb :'/users/login'
+    end
   end
 
-  # GET: /users/new
-  get "/users/new" do
-    erb :"/users/new.html"
+  post '/login' do
+    @user = User.find_by(username: params[:username])
+
+    if @user != nil
+      session[:user_id] = @user.id
+      redirect '/cities/index'
+    end
   end
 
-  # POST: /users
-  post "/users" do
-    redirect "/users"
-  end
-
-  # GET: /users/5
-  get "/users/:id" do
-    erb :"/users/show.html"
-  end
-
-  # GET: /users/5/edit
-  get "/users/:id/edit" do
-    erb :"/users/edit.html"
-  end
-
-  # PATCH: /users/5
-  patch "/users/:id" do
-    redirect "/users/:id"
-  end
-
-  # DELETE: /users/5/delete
-  delete "/users/:id/delete" do
-    redirect "/users"
+  get '/logout' do
+    if logged_in?
+      session.clear
+      redirect '/users/login'
+    else
+      redirect '/welcome'
+    end
   end
 end
