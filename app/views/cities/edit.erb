@@ -1,1 +1,13 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<h1>TripLogger</h1>
+
+<h2>Edit your travel experience:</h2>
+
+  <form action="/cities/<%= @city.id %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="patch">
+
+    <label for="name">City Name:</label>
+      <input type="text" name="name" value="<%= @city.name %>">
+    <label for="length_of_visit">Length of Visit</label>
+      <input type="text" name="length_of_visit" value="<%= @city.length_of_visit %>">
+    <button type="submit" value="submit">Edit Trip</button> 
+  </form>
