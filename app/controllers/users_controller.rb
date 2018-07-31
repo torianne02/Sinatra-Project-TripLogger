@@ -43,16 +43,18 @@ class UsersController < ApplicationController
   end
 
   get '/users/:id' do
-    @user = current_user
+    @user = User.find_by(params[:id])
+    @cities = @user.cities
     erb :'users/show'
   end
 
   get '/logout' do
     if logged_in?
       session.clear
-      redirect '/login'
+      flash[:message] = "You have been successfully logged out."
+      redirect '/'
     else
-      redirect '/welcome'
+      redirect '/'
     end
   end
 end
