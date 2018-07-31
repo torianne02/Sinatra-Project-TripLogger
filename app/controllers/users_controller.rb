@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   get '/users/signup' do
     if logged_in?
-      redirect "/users/#{@user.id}" # unsure if I want to redirect here or /cities
+      redirect "/users/#{@user.id}"
     else
       erb :'/users/signup'
     end
@@ -23,6 +23,7 @@ class UsersController < ApplicationController
 
   get '/users/login' do
     if logged_in?
+      @user = current_user
       redirect "/users/#{@user.id}"
     else
       erb :'/users/login'
