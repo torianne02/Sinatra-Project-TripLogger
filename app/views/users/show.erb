@@ -1,1 +1,15 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h1><%= "#{@user.username}" %>'s Trips</h1>
+
+<% if @user == current_user %>
+  <h2>You have <%= "#{@user.cities.size}" %> trip(s) logged!</h2>
+<% else %>
+  <h2>Trip(s) Logged: <%= "#{@user.cities.size}" %></h2>
+<% end %>
+
+<h3>Trip(s):</h3>
+  <% @user.cities.each do |city| %>
+    <h4><a href="/cities/<%= city.id %>"> <%= city.name %></h4></a>
+  <% end %>
+
+<% if @user == current_user %>
+  <h3><a href="/cities/new">Add a new trip!</a></h3>
