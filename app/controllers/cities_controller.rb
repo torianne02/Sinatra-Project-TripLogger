@@ -19,13 +19,15 @@ class CitiesController < ApplicationController
   end
 
   post '/cities' do
-    if params[:name].empty? || params[:length_of_visit].empty?
-      redirect '/cities/new'
+    if params[:name] == "" || params[:length_of_visit] == ""
+      flash[:message] = "Oops! Please fill out all criteria before continuing."
+      redirect to '/cities/new'
     else
       @city = City.create(name: params[:name], length_of_visit: params[:length_of_visit])
-      @user = User.find(session[:user_id])
+      @user = current_user
       @city.user_id = @user.id
       @city.save
+      flash[:message] = "You have created a new trip."
       redirect to "/cities/#{@city.id}"
     end
   end
@@ -55,29 +57,37 @@ class CitiesController < ApplicationController
 
   patch '/cities/:id' do
     if logged_in?
-      if params[:name].empty? || params[:length_of_visit].empty?
+      if params[:name] == "" || params[:length_of_visit] == ""
         redirect to "/cities/#{params[:id]}/edit"
       else
         @city = City.find_by_id(params[:id])
-        if session[:user_id] = @city.user_id
+        if @city && @city.user == current_user
           @city.update(name: params[:name], length_of_visit: params[:length_of_visit])
-          @city.save
+          flash[:message] = "Successfully edited trip."
+          redirect to "/cities/#{params[:id]}"
         else
+          flash[:message] = "You are not authorized to edit this trip."
           redirect to '/cities'
         end
       end
     else
-      redirect to 'users/login'
+      redirect to '/users/login'
     end
   end
 
   delete '/cities/:id/delete' do
-    @city = City.find_by_id(params[:id])
-    if session[:user_id] != @city.user_id
-      redirect to '/cities'
+    if logged_in?
+      @city = City.find_by_id(params[:id])
+      if @city && @city.user == current_user
+        @city.delete
+        flash[:message] = "You have successfully deleted the trip."
+        redirect to '/cities'
+      else
+        flash[:message] = "You are not authorized to delete this trip."
+        redirect to "/cities/#{params[:id]}"
+      end
     else
-      @city.delete
-      redirect to '/cities'
+      redirect to '/users/login'
     end
   end
 end
