@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  get '/signup' do
+  get '/users/signup' do
     if logged_in?
       redirect "/users/#{@user.id}" # unsure if I want to redirect here or /cities
     else
@@ -14,14 +14,14 @@ class UsersController < ApplicationController
       redirect "/users/#{@user.id}"
     elsif @user.invalid? && User.find_by(username: @user.username)
       flash[:message] = "Sorry, that username is already taken."
-      redirect '/signup'
+      redirect 'users/signup'
     else
       flash[:message] = "Oops! Make sure to fill in all criteria."
-      redirect '/signup'
+      redirect 'users/signup'
     end
   end
 
-  get '/login' do
+  get '/users/login' do
     if logged_in?
       redirect "/users/#{@user.id}"
     else
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
       redirect "/users/#{@user.id}"
     else
       flash[:message] = "Invalid username or password. Please try again."
-      redirect '/login'
+      redirect '/users/login'
     end
   end
 
