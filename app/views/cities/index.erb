@@ -1,10 +1,11 @@
 <h1>Welcome, <%= @user.username %>!</h1>
 
-<h2>Your Trips:</h2>
+<h2>Trip Log</h2>
 
-<% @cities.all.each do |city| %>
+<% @cities.each do |city| %>
   <div>
-    <h3><%= city.name %> Trip</h3>
+    <a href="/cities/<%= city.id %>"><h3><%= city.name %> Trip</h3></a>
+    <p>Created by: <a href="/users/<%= city.user.id %>"> <%= city.user.username %></a></p>
     <p>Length of Trip: <%= city.length_of_visit %></p>
   </div>
 <% end %>

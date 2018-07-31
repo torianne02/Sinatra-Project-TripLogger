@@ -3,23 +3,24 @@ class UsersController < ApplicationController
     if !session[:user_id]
       erb :'/users/signup'
     else
-      redirect '/cities'
+      redirect '/users/:id' # unsure if I want to redirect here or /cities
     end
   end
 
   post '/signup' do
     if params.values.include?("")
+      flash[:message] = "Oops! Make sure to fill in all criteria."
       redirect '/users/signup'
     else
       @user = User.create(username: params[:username], email: params[:email], password: params[:password])
       session[:user_id] = @user.id
-      redirect '/cities'
+      redirect '/users/:id'
     end
   end
 
   get '/users/login' do
     if logged_in?
-      redirect '/cities'
+      redirect '/users/:id'
     else
       erb :'/users/login'
     end
@@ -30,8 +31,13 @@ class UsersController < ApplicationController
 
     if @user != nil
       session[:user_id] = @user.id
-      redirect '/cities'
+      redirect '/users/:id'
     end
+  end
+
+  get '/users/:id' do
+    @user = current_user
+    erb :'users/show'
   end
 
   get '/logout' do
