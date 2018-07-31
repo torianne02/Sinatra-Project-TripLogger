@@ -63,7 +63,7 @@ class CitiesController < ApplicationController
         @city = City.find_by_id(params[:id])
         if @city && @city.user == current_user
           @city.update(name: params[:name], length_of_visit: params[:length_of_visit])
-          flash[:message] = "Successfully edited trip."
+          flash[:message] = "Successfully updated trip."
           redirect to "/cities/#{params[:id]}"
         else
           flash[:message] = "You are not authorized to edit this trip."
