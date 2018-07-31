@@ -1,7 +1,10 @@
 class CitiesController < ApplicationController
   get '/cities' do
     if logged_in?
-      erb :"/cities/index"
+      @user = current_user
+      session[:user_id] = @user.id
+      @cities = City.all
+      erb :'/cities/index'
     else
       redirect to '/users/login'
     end
@@ -9,7 +12,7 @@ class CitiesController < ApplicationController
 
   get '/cities/new' do
     if logged_in?
-      erb :"/cities/new"
+      erb :'/cities/new'
     else
       redirect to '/users/login'
     end
@@ -29,6 +32,7 @@ class CitiesController < ApplicationController
 
   get '/cities/:id' do
     if logged_in?
+      @user = current_user
       @city = City.find_by_id(params[:id])
       erb :'/cities/show'
     else
@@ -39,10 +43,10 @@ class CitiesController < ApplicationController
   get '/cities/:id/edit' do
     if logged_in?
       @city = City.find_by_id(params[:id])
-      if session[:user_id] == @city.user_id
+      if @city.user == current_user
         erb :'/cities/edit'
       else
-        redirect to '/cities'
+        redirect to "/cities/#{params[:id]}"
       end
     else
       redirect to '/users/login'
@@ -69,7 +73,7 @@ class CitiesController < ApplicationController
 
   delete '/cities/:id/delete' do
     @city = City.find_by_id(params[:id])
-    if session[:user_id] != @tweet.user_id
+    if session[:user_id] != @city.user_id
       redirect to '/cities'
     else
       @city.delete
