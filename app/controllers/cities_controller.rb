@@ -25,7 +25,7 @@ class CitiesController < ApplicationController
     else
       @city = City.create(name: params[:name], length_of_visit: params[:length_of_visit])
       @user = current_user
-      @city.user_id = @user.id
+      @city.user_ids = @user.id
       @city.save
       flash[:message] = "You have created a new trip."
       redirect to "/cities/#{@city.id}"
@@ -46,7 +46,8 @@ class CitiesController < ApplicationController
   get '/cities/:id/edit' do
     if logged_in?
       @city = City.find_by_id(params[:id])
-      if @city.user == current_user
+      binding.pry
+      if user == current_user
         erb :'/cities/edit'
       else
         redirect to "/cities/#{params[:id]}"

@@ -8,11 +8,9 @@
   <p>Trip Created by: <a href="/users/<%= @user.id %>"><%= @user.username %></a></p>
 </div>
 
-<% if @city.user == current_user %>
   <a href="/cities/<%= @city.id %>/edit">Edit Trip</a>
 
-  <form action="/cities/<%= @city.id %>/delete" method="POST">
-    <input type="hidden" id="hidden" name="_method" value="DELETE">
-    <button type="submit" value="submit">Delete Trip</button>
-  </form>
-<% end %>
+<form action="/cities/<%= @city.id %>/delete" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <button type="submit" value="submit">Delete Trip</button>
+</form>
