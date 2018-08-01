@@ -3,9 +3,8 @@
 <% @cities.each do |city| %>
   <div>
     <a href="/cities/<%= city.id %>"><h3><%= city.name %> Trip</h3></a>
-    <p>Created by: <a href="/users/<%= city.user.id %>"> <%= city.user.username %></a></p>
-    <p>Length of Trip: <%= city.length_of_visit %></p>
+    <p>Number of Visitors: <%= city.users.size %></p>
   </div>
 <% end %>
 
-<a href="/cities/new">Add Trip</a>
+<a href="/trips/new">Add Trip</a>
