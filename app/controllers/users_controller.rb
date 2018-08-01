@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   get '/users/:id' do
     @user = User.find_by(params[:id])
-    @trips = @user.trips
+    @cities = City.all
     erb :'users/show'
   end
 

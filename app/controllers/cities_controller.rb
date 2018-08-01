@@ -17,7 +17,7 @@ class CitiesController < ApplicationController
   #     redirect to '/users/login'
   #   end
   # end
-
+  #
   # post '/cities' do
   #   if params[:name] == "" || params[:length_of_visit] == ""
   #     flash[:message] = "Oops! Please fill out all criteria before continuing."
@@ -48,7 +48,7 @@ class CitiesController < ApplicationController
   #     @city = City.find_by_id(params[:id])
   #     binding.pry
   #     if @city.user == current_user
-  #       # need to turn into @trip.user so user can only edit their own trip
+  #       # need to turn into @trip.use so user can only edit their own trip
   #       # vs a user that has been to one city and can edit all the posts of that city
   #       erb :'/cities/edit'
   #     else
@@ -76,7 +76,7 @@ class CitiesController < ApplicationController
   #     redirect to '/users/login'
   #   end
   # end
-  
+
   # delete '/cities/:id/delete' do
   #   if logged_in?
   #     @city = City.find_by_id(params[:id])
