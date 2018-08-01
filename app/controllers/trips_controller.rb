@@ -63,6 +63,7 @@ class TripsController < ApplicationController
     if logged_in?
       @user = current_user
       @trip = Trip.find_by_id(params[:id])
+      @city = City.find_by_id(@trip.city_id)
       erb :'/trips/show'
     else
       flash[:message] = "Sorry, you have to be logged in to see this content."
