@@ -1,1 +1,16 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h1>TripLogger</h1>
+
+<div>
+  <h3><%= @trip.city.name %> Trip</h3>
+  <br>
+  <p>Length of Trip: <%= @trip.length_of_visit %></p>
+  <br>
+  <p>Trip Created by: <a href="/users/<%= @user.id %>"><%= @user.username %></a></p>
+</div>
+
+  <a href="/trips/<%= @trip.id %>/edit">Edit Trip</a>
+
+<form action="/trips/<%= @trip.id %>/delete" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <button type="submit" value="submit">Delete Trip</button>
+</form>

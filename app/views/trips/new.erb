@@ -1,1 +1,11 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+<h1>TripLogger</h1>
+
+<h2>Enter your newly traveled location!</h2>
+
+  <form action="/trips" method="POST">
+    <label for="city_name">City Name:</label>
+      <input type="text" name="name" id="name">
+    <label for="length_of_visit">Length of Visit:</label>
+      <input type="text" name="length_of_visit" id="length_of_visit">
+    <button type="submit" value="submit">Add Trip</button>
+  </form>

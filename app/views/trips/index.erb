@@ -1,1 +1,11 @@
-<h1>This is the Model's index page.</h1>
+<h1>Trip Log</h1>
+
+<% @trips.each do |trip| %>
+  <div>
+    <a href="/cities/<%= trip.city_id %>"><h3><%= trip.city.name %> Trip</h3></a>
+    <p>Created by: <a href="/users/<%= trip.user_id %>"> <%= trip.user.username %></a></p>
+    <p>Length of Trip: <%= trip.length_of_visit %></p>
+  </div>
+<% end %>
+
+<a href="/trips/new">Add Trip</a>
