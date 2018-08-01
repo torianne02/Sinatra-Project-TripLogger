@@ -9,3 +9,5 @@ use Rack::MethodOverride
 use CitiesController
 use UsersController
 run ApplicationController
+use TripsController
+use TriPsController
