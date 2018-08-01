@@ -47,7 +47,9 @@ class CitiesController < ApplicationController
     if logged_in?
       @city = City.find_by_id(params[:id])
       binding.pry
-      if user == current_user
+      if @city.user == current_user
+        # need to turn into @trip.user so user can only edit their own trip
+        # vs a user that has been to one city and can edit all the posts of that city
         erb :'/cities/edit'
       else
         redirect to "/cities/#{params[:id]}"

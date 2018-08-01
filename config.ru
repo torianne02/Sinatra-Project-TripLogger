@@ -6,8 +6,7 @@ end
 
 use Rack::MethodOverride
 
+use TripsController
 use CitiesController
 use UsersController
 run ApplicationController
-use TripsController
-use TriPsController
