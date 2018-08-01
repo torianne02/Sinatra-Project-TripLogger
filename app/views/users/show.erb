@@ -8,8 +8,10 @@
 
 <h3>Trip(s):</h3>
   <% @user.trips.each do |trip| %>
-    <h4><a href="/cities/<%= trip.city_id %>"> <%= trip.city.name %></h4></a>
+    <h4><a href="/trips/<%= trip.id %>"> <%= trip.city.name %></h4></a>
   <% end %>
+
+<br>
 
 <h2>Add a new trip!</h2>
 

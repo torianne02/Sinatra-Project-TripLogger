@@ -10,52 +10,25 @@ class TripsController < ApplicationController
     end
   end
 
-  # get '/trips/new' do
-  #   if logged_in?
-  #     erb :'/trips/new'
-  #   else
-  #     redirect to '/users/login'
-  #   end
-  # end
-
   post '/trips' do
     if params[:new_city_name].empty?
       @city = City.find_or_create_by(name: params[:city_name])
     else
       @city = City.find_or_create_by(name: params[:new_city_name])
     end
-    # we know we have a select and a text input for city
-    # if params[:new_city_name].empty?
-    #   city = City.find_or_create_by_name(params[:city_name])
-    # else
-    #   city = City.find_or_create_by_name(params[:new_city_name])
-    # end
-    # what could we do if city fails to be created?
+
     @trip = Trip.new(length_of_visit: params[:length_of_visit])
     @user = current_user
     @trip.user_id = @user.id
     @trip.city_id = @city.id
     @trip.save
 
-    # binding.pry
-    #   flash[:message] = "Oops! Please fill out all criteria before continuing."
-    #   redirect to '/trips/new'
-
-    # @trip = Trip.new # add incoming info from params and city
     flash[:message] = "You have created a new trip."
     redirect to "/trips/#{@trip.id}"
+
     if @trip.invalid?
       flash[:message] = "Oops! Please fill out all criteria before continuing."
       erb :'/users/show'
-      # failure
-    # else`
-    #   @trip = Trip.create(length_of_visit: params[:length_of_visit])
-    #   @user = current_user
-    #   @trip.user_id = @user.id
-    #   # need city_ids
-    #   @trip.save
-      # flash[:message] = "You have created a new trip."
-      # redirect to "/trips/#{@trip.id}"
     end
   end
 
