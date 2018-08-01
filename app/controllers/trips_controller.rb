@@ -10,13 +10,13 @@ class TripsController < ApplicationController
     end
   end
 
-  get '/trips/new' do
-    if logged_in?
-      erb :'/trips/new'
-    else
-      redirect to '/users/login'
-    end
-  end
+  # get '/trips/new' do
+  #   if logged_in?
+  #     erb :'/trips/new'
+  #   else
+  #     redirect to '/users/login'
+  #   end
+  # end
 
   post '/trips' do
     if params[:new_city_name].empty?
@@ -41,7 +41,7 @@ class TripsController < ApplicationController
     #   flash[:message] = "Oops! Please fill out all criteria before continuing."
     #   redirect to '/trips/new'
 
-    @trip = Trip.new # add incoming info from params and city
+    # @trip = Trip.new # add incoming info from params and city
     flash[:message] = "You have created a new trip."
     redirect to "/trips/#{@trip.id}"
     if @trip.invalid?
@@ -75,6 +75,7 @@ class TripsController < ApplicationController
     if logged_in?
       @trip = Trip.find_by_id(params[:id])
       if @trip.user == current_user
+        @cities = City.all
         erb :'/trips/edit'
       else
         redirect to "/trips/#{params[:id]}"
@@ -84,12 +85,21 @@ class TripsController < ApplicationController
 
   patch '/trips/:id' do
     if logged_in?
-      if params[:length_of_visit] == ""
+      @trip = Trip.find_by_id(params[:id])
+      @city = City.find_by_id(@trip.city_id)
+
+      if @trip.invalid?
         redirect to "/trips/#{params[:id]}/edit"
       else
-        @trip = Trip.find_by_id(params[:id])
         if @trip && @trip.user == current_user
-          @trip.update(length_of_visit: params[:length_of_visit])
+          if params[:new_city_name].empty?
+            @city.update(name: params[:city_name])
+          else
+            @city.update(name: params[:new_city_name])
+          end
+
+          @trip.update(length_of_visit: params[:length_of_visit], city_id: @city.id, user_id: current_user.id)
+          binding.pry
           flash[:message] = "Successfully updated trip."
           redirect to "/trips/#{params[:id]}"
         else
