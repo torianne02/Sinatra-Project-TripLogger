@@ -6,8 +6,14 @@
     <input type="hidden" id="hidden" name="_method" value="patch">
 
     <label for="city_name">City Name:</label>
-      <input type="text" name="name" value="<%= @city.name %>">
-    <label for="length_of_visit">Length of Visit</label>
-      <input type="text" name="length_of_visit" value="<%= @trip.length_of_visit %>">
+      <select name="city_name">
+        <% @cities.each do |city| %>
+          <option value="<%= city.name %>"><%= city.name %></option>
+        <% end %>
+      </select>
+    Or, enter a new city
+      <input type="text" name="new_city_name">
+    <label for="length_of_visit">Length of Visit:</label>
+      <input type="text" name="length_of_visit">
     <button type="submit" value="submit">Edit Trip</button>
   </form>
