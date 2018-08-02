@@ -13,11 +13,11 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/users/#{@user.id}"
     elsif @user.invalid? && User.find_by(username: @user.username)
-      session[:message] = "Sorry, that username is already taken."
+      flash[:notice] = "Sorry, that username is already taken."
       redirect 'users/signup'
     else
-      session[:message] = "Oops! Make sure to fill in all criteria."
-      redirect 'users/signup'
+      flash[:notice] = "Oops! Make sure to fill in all criteria."
+      erb :'users/signup'
     end
   end
 
@@ -35,10 +35,9 @@ class UsersController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      session[:message] = "Welcome back, #{@user.username}!"
       redirect "/users/#{@user.id}"
     else
-      session[:message] = "Invalid username or password. Please try again."
+      flash[:error] = "Invalid username or password. Please try again."
       redirect '/users/login'
     end
   end
@@ -52,7 +51,6 @@ class UsersController < ApplicationController
   get '/logout' do
     if logged_in?
       session.clear
-      session[:message] = "You have been successfully logged out."
       redirect '/'
     else
       redirect '/'
