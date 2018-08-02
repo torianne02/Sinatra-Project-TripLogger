@@ -91,7 +91,7 @@ class TripsController < ApplicationController
       if @trip && @trip.user == current_user
         @trip.delete
         session[:message] = "You have successfully deleted the trip."
-        redirect to '/trips'
+        redirect to "/users/#{@trip.user_id}"
       else
         session[:message] = "You are not authorized to delete this trip."
         redirect to "/trips/#{params[:id]}"

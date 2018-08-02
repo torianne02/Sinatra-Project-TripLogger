@@ -10,7 +10,10 @@
     <title>Triplogger</title>
     <nav>
       <% if logged_in? %>
-        <button type="submit" name="submit"><a href="/logout">Log Out</a></button>
+        <% @user = current_user %>
+        <button type="submit" value="submit"><a href="/trips">View All Trips</a></button>
+        <button type="submit" value="submit"><a href="/users/<%= @user.id %>">View My Trips</a></button>
+        <button type="submit" value="submit"><a href="/logout">Log Out</a></button>
       <% end %>
     </nav>
 
