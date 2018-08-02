@@ -3,7 +3,7 @@
 <% @trips.each do |trip| %>
   <div>
     <a href="/cities/<%= trip.city_id %>"><h3><%= trip.city.name %> Trip</h3></a>
-    <p>Created by: <a href="/users/<%= trip.user_id %>"> <%= trip.user.username %></a></p>
+    <p>Created by: <a href="/users/<%= trip.user.id %>"> <%= trip.user.username %></a></p>
     <p>Length of Trip: <%= trip.length_of_visit %></p>
   </div>
 <% end %>

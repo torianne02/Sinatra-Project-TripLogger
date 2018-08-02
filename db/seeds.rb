@@ -30,4 +30,4 @@ Trip.create(length_of_visit: '1 week', city_id: 2, user_id: 4)
 
 Trip.create(length_of_visit: '2 months', city_id: 4, user_id: 4)
 
-Trip.create(length_of_visit: '6 days' city_id: 3, user_id: 3)
+Trip.create(length_of_visit: '6 days', city_id: 3, user_id: 3)
