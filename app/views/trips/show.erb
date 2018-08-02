@@ -5,7 +5,7 @@
   <br>
   <p>Length of Trip: <%= @trip.length_of_visit %></p>
   <br>
-  <p>Trip Created by: <a href="/users/<%= @user.id %>"><%= @user.username %></a></p>
+  <p>Trip Created by: <%= @user.username %></p>
 </div>
 
   <button type="submit" value="submit"><a href="/trips/<%= @trip.id %>/edit">Edit Trip</a></button>

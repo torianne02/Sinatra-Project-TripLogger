@@ -6,6 +6,6 @@
   <br>
   <h3>Visitors:</h3>
     <% @city.trips.each do |trip| %>
-      <h4><a href="/users/<%= trip.user_id %>"><%= trip.user.username %></a></h4>
+      <h4><%= trip.user.username %></h4>
       <p>Length of Trip: <%= trip.length_of_visit %></p>
     <% end %>

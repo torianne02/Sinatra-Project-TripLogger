@@ -1,10 +1,6 @@
 <h1><%= "#{@user.username}" %>'s Trips</h1>
 
-<% if @user == current_user %>
-  <h2>You have <%= "#{@user.trips.size}" %> trip(s) logged!</h2>
-<% else %>
-  <h2>Trip(s) Logged: <%= "#{@user.trips.size}" %></h2>
-<% end %>
+<h2>You have <%= "#{@user.trips.size}" %> trip(s) logged!</h2>
 
 <h3>Trip(s):</h3>
   <% @user.trips.each do |trip| %>
@@ -15,18 +11,16 @@
 
 <h2>Add a new trip!</h2>
 
-<% if @user == current_user %>
-  <form action="/trips" method="POST">
-    <label for="city_name">City Name:</label>
-      <select name="city_name">
-        <% @cities.each do |city| %>
-          <option value="<%= city.name %>"><%= city.name %></option>
-        <% end %>
-      </select>
-    Or, enter a new city
-      <input type="text" name="new_city_name">
-    <label for="length_of_visit">Length of Visit:</label>
-      <input type="text" name="length_of_visit">
-    <button type="submit" value="submit">Add Trip</button>
-  </form>
-<% end %>
+<form action="/trips" method="POST">
+  <label for="city_name">City Name:</label>
+    <select name="city_name">
+      <% @cities.each do |city| %>
+        <option value="<%= city.name %>"><%= city.name %></option>
+      <% end %>
+    </select>
+  Or, enter a new city
+    <input type="text" name="new_city_name">
+  <label for="length_of_visit">Length of Visit:</label>
+    <input type="text" name="length_of_visit">
+  <button type="submit" value="submit">Add Trip</button>
+</form>
