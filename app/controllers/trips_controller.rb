@@ -23,11 +23,11 @@ class TripsController < ApplicationController
     @trip.city_id = @city.id
     @trip.save
 
-    flash[:message] = "You have created a new trip."
+    session[:message] = "You have created a new trip."
     redirect to "/trips/#{@trip.id}"
 
     if @trip.invalid?
-      flash[:message] = "Oops! Please fill out all criteria before continuing."
+      session[:message] = "Oops! Please fill out all criteria before continuing."
       erb :'/users/show'
     end
   end
@@ -39,7 +39,7 @@ class TripsController < ApplicationController
       @city = City.find_by_id(@trip.city_id)
       erb :'/trips/show'
     else
-      flash[:message] = "Sorry, you have to be logged in to see this content."
+      session[:message] = "Sorry, you have to be logged in to see this content."
       redirect to '/users/login'
     end
   end
@@ -73,10 +73,10 @@ class TripsController < ApplicationController
 
           @trip.update(length_of_visit: params[:length_of_visit], city_id: @city.id, user_id: current_user.id)
           binding.pry
-          flash[:message] = "Successfully updated trip."
+          session[:message] = "Successfully updated trip."
           redirect to "/trips/#{params[:id]}"
         else
-          flash[:message] = "You are not authorized to edit this trip."
+          session[:message] = "You are not authorized to edit this trip."
           redirect to '/trips'
         end
       end
@@ -90,10 +90,10 @@ class TripsController < ApplicationController
       @trip = Trip.find_by_id(params[:id])
       if @trip && @trip.user == current_user
         @trip.delete
-        flash[:message] = "You have successfully deleted the trip."
+        session[:message] = "You have successfully deleted the trip."
         redirect to '/trips'
       else
-        flash[:message] = "You are not authorized to delete this trip."
+        session[:message] = "You are not authorized to delete this trip."
         redirect to "/trips/#{params[:id]}"
       end
     else
