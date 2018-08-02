@@ -23,4 +23,6 @@
   <label for="length_of_visit">Length of Visit:</label>
     <input type="text" name="length_of_visit">
   <button type="submit" value="submit">Add Trip</button>
+  <b><%= session[:success_message] if !session[:message].nil? && !session[:message].empty? %></b>
 </form>
+<% session[:message].clear if !session[:message].nil? && !session[:message].empty? %>
