@@ -1,13 +1,15 @@
 <h1>TripLogger</h1>
-  <div id='flash' class='error'>
-    <%= flash[:error] %>
 
-  <h2><%= @city.name %></h2>
-  <br>
-  <h4>Number of Visitors: <%= @city.users.size %></h4>
-  <br>
-  <h3>Visitors:</h3>
-    <% @city.trips.each do |trip| %>
-      <h4><%= trip.user.username %></h4>
-      <p>Length of Trip: <%= trip.length_of_visit %></p>
-    <% end %>
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+<h2><%= @city.name %></h2>
+<br>
+<h4>Number of Visitors: <%= @city.users.size %></h4>
+<br>
+<h3>Visitors:</h3>
+  <% @city.trips.each do |trip| %>
+    <h4><%= trip.user.username %></h4>
+    <p>Length of Trip: <%= trip.length_of_visit %></p>
+  <% end %>
