@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<% if flash.has?(:message) %>
-  <%= flash[:message] %>
-<% end %>
-
 <html>
   <head>
     <!-- <link rel="stylesheet" href="/stylesheets/main.css" /> -->
@@ -12,10 +8,7 @@
     <h1>Welcome to TripLogger, your personal travel log.</h1>
     <h3>Keep track of all of your travel adventures and let others inspire your travels!</h3>
 
-    <a href="/users/signup">Sign up</a>
-    <a href="/users/login">Log in</a>
-
-    <br></br>
+    <h3><a href="/users/signup">Sign up</a> <a href="/users/login">Log in</a></h3>
 
     <div>
       <div class="row">
