@@ -1,3 +1,7 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <h1>TripLogger</h1>
 
 <h2>Create a new account.</h2>
@@ -11,7 +15,3 @@
     <input type="text" name="password" id="password">
   <button type="submit" value="submit">Create Account</button>
 </form>
-
-<div id='flash' class='notice'>
-  <%= flash[:notice] %>
-</div>
