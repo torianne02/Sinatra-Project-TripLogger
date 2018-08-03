@@ -2,9 +2,9 @@
   <%= flash[:message] %>
 <% end %>
 
-<h1><%= "#{@user.username}" %>'s Trips</h1>
+<h1><%= @user.username %>'s Trips</h1>
 
-<h2>You have <%= "#{@user.trips.size}" %> trip(s) logged!</h2>
+<h2>You have <%= @user.trips.size %> trip(s) logged!</h2>
 
 <h3>Trip(s):</h3>
   <% @user.trips.each do |trip| %>

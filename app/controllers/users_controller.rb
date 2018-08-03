@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   get '/users/login' do
     if logged_in?
-      @user = current_user
+      session[:user_id] = @user.id
       redirect "/users/#{@user.id}"
     else
       erb :'/users/login'
@@ -39,14 +39,14 @@ class UsersController < ApplicationController
       redirect "/users/#{@user.id}"
     else
       flash[:message] = "There was trouble logging in. Please try again."
-      erb :'/users/login'
+      redirect to '/users/login'
     end
   end
 
   get '/users/:id' do
     @user = User.find_by(params[:id])
     @cities = City.all
-    erb :'users/show'
+    erb :'/users/show'
   end
 
   get '/logout' do
