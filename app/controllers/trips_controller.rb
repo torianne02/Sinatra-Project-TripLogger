@@ -23,11 +23,11 @@ class TripsController < ApplicationController
     @trip.city_id = @city.id
     @trip.save
 
-    session[:message] = "You have created a new trip."
+    flash[:message] = "You have successfully created the trip."
     redirect to "/trips/#{@trip.id}"
 
     if @trip.invalid?
-      session[:message] = "Oops! Please fill out all criteria before continuing."
+      flash[:message] = "Oops! Make sure to fill out all criteria!"
       erb :'/users/show'
     end
   end
@@ -39,7 +39,6 @@ class TripsController < ApplicationController
       @city = City.find_by_id(@trip.city_id)
       erb :'/trips/show'
     else
-      session[:message] = "Sorry, you have to be logged in to see this content."
       redirect to '/users/login'
     end
   end
@@ -62,7 +61,8 @@ class TripsController < ApplicationController
       @city = City.find_by_id(@trip.city_id)
 
       if @trip.invalid?
-        redirect to "/trips/#{params[:id]}/edit"
+        flash[:message] = "Oops! Make sure to fill out all criteria!"
+        erb :'/trips/edit'
       else
         if @trip && @trip.user == current_user
           if params[:new_city_name].empty?
@@ -72,11 +72,9 @@ class TripsController < ApplicationController
           end
 
           @trip.update(length_of_visit: params[:length_of_visit], city_id: @city.id, user_id: current_user.id)
-          binding.pry
-          session[:message] = "Successfully updated trip."
+          flash[:message] = "Trip successfully updated."
           redirect to "/trips/#{params[:id]}"
         else
-          session[:message] = "You are not authorized to edit this trip."
           redirect to '/trips'
         end
       end
@@ -90,10 +88,9 @@ class TripsController < ApplicationController
       @trip = Trip.find_by_id(params[:id])
       if @trip && @trip.user == current_user
         @trip.delete
-        session[:message] = "You have successfully deleted the trip."
+        flash[:message] = "Trip has been deleted."
         redirect to "/users/#{@trip.user_id}"
       else
-        session[:message] = "You are not authorized to delete this trip."
         redirect to "/trips/#{params[:id]}"
       end
     else

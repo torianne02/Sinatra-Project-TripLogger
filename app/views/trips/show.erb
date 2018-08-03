@@ -1,4 +1,12 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <h1>TripLogger</h1>
+
+<div id='flash' class='error'>
+  <%= flash[:error] %>
+</div>
 
 <div>
   <h3><a href="/cities/<%= @city.id %>"><%= @city.name %></a> Trip</h3>
