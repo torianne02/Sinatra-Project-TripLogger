@@ -10,6 +10,15 @@ class TripsController < ApplicationController
     end
   end
 
+  get '/trips/new' do
+    if logged_in?
+      @cities = City.all
+      erb :'/trips/new'
+    else
+      redirect to '/users/login'
+    end
+  end
+
   post '/trips' do
     if params[:new_city_name].empty?
       @city = City.find_or_create_by(name: params[:city_name])
