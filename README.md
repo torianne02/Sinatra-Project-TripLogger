@@ -11,8 +11,9 @@ Then, run the following:
 bundle install
 rake db:migrate
 shotgun
-http://localhost:9393/
 ```
+Then, paste http://localhost:9393/ into your web browser.
+
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at https://github.com/torianne02/Sinatra-Project-TripLogger.git. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
