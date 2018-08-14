@@ -1,7 +1,3 @@
-<% if flash.has?(:message) %>
-  <%= flash[:message] %>
-<% end %>
-
 <h1>TripLogger</h1>
 
 <div id='flash' class='error'>
@@ -16,7 +12,7 @@
   <p>Trip Created by: <%= @user.username %></p>
 </div>
 
-  <button type="submit" value="submit"><a href="/trips/<%= @trip.id %>/edit">Edit Trip</a></button>
+<button type="submit" value="submit"><a href="/trips/<%= @trip.id %>/edit">Edit Trip</a></button>
 
 <form action="/trips/<%= @trip.id %>/delete" method="POST">
   <input type="hidden" id="hidden" name="_method" value="DELETE">

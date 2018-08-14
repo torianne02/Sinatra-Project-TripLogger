@@ -24,8 +24,11 @@
   </head>
   <body>
     <div class="wrapper">
+      <% if flash.has?(:message) %>
+        <%= flash[:message] %>
+      <% end %>
 
-        <%= yield %>
+      <%= yield %>
 
       <footer class="branding">
         <small>&copy; 2018 <strong>Triplogger</strong></small>
